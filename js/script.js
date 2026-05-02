@@ -1,23 +1,11 @@
-// Dark mode toggle with icon swap
+// Dark mode toggle (icon swap handled by CSS, but ensure class toggles)
 const toggle = document.getElementById('darkModeToggle');
 if (toggle) {
-  const updateIcons = () => {
-    const isDark = document.body.classList.contains('dark');
-    // CSS handles icon visibility, but we ensure class toggles
-  };
   const saved = localStorage.getItem('theme');
   if (saved === 'dark') document.body.classList.add('dark');
   toggle.addEventListener('click', () => {
     document.body.classList.toggle('dark');
     localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-  });
-}
-
-// Cursor glow effect
-const glow = document.querySelector('.cursor-glow');
-if (glow) {
-  document.addEventListener('mousemove', (e) => {
-    glow.style.transform = `translate(${e.clientX - 200}px, ${e.clientY - 200}px)`;
   });
 }
 
@@ -53,7 +41,7 @@ function observeNewFadeElements() {
   document.querySelectorAll('.fade-up:not(.observed)').forEach(el => { observer.observe(el); el.classList.add('observed'); });
 }
 
-// Project data (full as before – keep exactly)
+// Project data (full, as before)
 const projectsData = [
   { id: 0, tag: "INDUSTRIAL CONSTRUCTION", title: "PepsiCo Beverage Manufacturing Facility Expansion", preview: "Leading project planning and execution support for a major PepsiCo facility, achieving 98% milestone compliance.", context: "Delivering industrial works within a live production environment for PepsiCo India Holdings.", actions: "Developed L1-L3 schedules for 30+ work packages and coordinated daily lookaheads with 20+ subcontractor teams.", results: "Reduced reporting turnaround time by 40% using standardized dashboards, saved approximately 3 weeks of potential slippage.", skills: ["Primavera P6","3-Tier Scheduling","Progress Monitoring"], metrics: ["98% milestone compliance","±5% variance","40% faster reporting"] },
   { id: 1, tag: "CAPEX DELIVERY", title: "UK-Wide Sterilization Plant Rollout (Revolution-ZERO)", preview: "Directed the end-to-end CAPEX delivery of £3M+ sterilization plant projects across the UK.", context: "Managing large-scale technical infrastructure projects in a high-compliance environment.", actions: "Led scope management, budgeting, and resource planning. Used AutoCAD for 2D layout coordination.", results: "Successfully delivered multiple plant projects by aligning site execution with technical deliverables.", skills: ["AutoCAD","CAPEX Project Delivery","KPI Tracking"], metrics: ["£3M+ CAPEX delivered","2 plants commissioned","100% traceability"] },
