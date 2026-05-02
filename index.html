@@ -10,9 +10,9 @@
   <script src="js/script.js" defer></script>
 </head>
 <body>
-  <header class="navbar glass-nav">
+  <header class="navbar">
     <div class="container nav-container">
-      <a href="index.html" class="logo">Aditya Abhyankar</a>
+      <a href="index.html" class="logo">Aditya<span>Abhyankar</span></a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link active">Home</a>
         <a href="about.html" class="nav-link">About</a>
@@ -20,68 +20,68 @@
         <a href="projects.html" class="nav-link">Projects</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
-      <button class="theme-toggle" id="darkModeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none;"></i></button>
+      <button class="theme-toggle" id="darkModeToggle" aria-label="Theme"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-text fade-up">
-          <div class="hero-badge">8+ years of impact</div>
+      <div class="container hero-wrapper">
+        <div class="hero-content">
+          <span class="hero-badge">8+ years of impact</span>
           <h1>Aditya Abhyankar</h1>
           <p class="hero-titles">Mechanical Engineer · Project Planner · Technical Project Manager</p>
           <p class="hero-description">Engineering‑disciplined delivery — schedules, structures, and systems that move multi‑million pound projects forward.</p>
           <div class="hero-buttons">
-            <a href="projects.html" class="btn btn-primary"><i class="fas fa-arrow-right"></i> View Work</a>
+            <a href="projects.html" class="btn btn-primary">View Work <i class="fas fa-arrow-right"></i></a>
             <a href="contact.html" class="btn btn-outline">Contact</a>
-            <a href="assets/Aditya_Abhyankar_CV.pdf" class="btn btn-outline" download><i class="fas fa-download"></i> Download CV</a>
-          </div>
-          <div class="stats-row">
-            <div class="stat-item"><span class="stat-number" data-count="8">8+</span> YEARS</div>
-            <div class="stat-item"><span class="stat-number" data-count="5">5+</span> PROJECTS</div>
-            <div class="stat-item"><span class="stat-number" data-count="90">£90M+</span> PORTFOLIO</div>
-            <div class="stat-item"><span class="stat-number" data-count="26">26+</span> TEAMS</div>
+            <a href="assets/Aditya_Abhyankar_CV.pdf" class="btn btn-outline" download>Download CV</a>
           </div>
         </div>
-        <div class="hero-visual fade-up delay-1">
-          <div class="hero-badge-card">
-            <i class="fas fa-hard-hat"></i>
-            <i class="fas fa-chart-line"></i>
-            <i class="fas fa-users"></i>
-          </div>
+        <div class="hero-stats">
+          <div class="stat-card"><span class="stat-number">8+</span><span class="stat-label">Years</span></div>
+          <div class="stat-card"><span class="stat-number">5+</span><span class="stat-label">Projects</span></div>
+          <div class="stat-card"><span class="stat-number">£90M+</span><span class="stat-label">Portfolio</span></div>
+          <div class="stat-card"><span class="stat-number">26+</span><span class="stat-label">Teams</span></div>
         </div>
       </div>
     </section>
 
-    <section class="competencies container fade-up">
-      <h2>Project planning, end‑to‑end delivery, and engineering rigor.</h2>
-      <div class="competency-grid">
-        <span>Project Planning (L1-L3)</span><span>Primavera P6 / MS Project</span><span>CAPEX Delivery</span>
-        <span>Subcontractor Coordination</span><span>Earned Value Analysis</span><span>KPI Dashboards</span>
-        <span>Risk & Float Management</span><span>Document Control</span><span>AutoCAD</span>
+    <section class="competencies">
+      <div class="container">
+        <h2>Core competencies that drive delivery</h2>
+        <div class="competency-grid">
+          <span>Project Planning (L1-L3)</span><span>Primavera P6 / MS Project</span><span>CAPEX Delivery</span>
+          <span>Subcontractor Coordination</span><span>Earned Value Analysis</span><span>KPI Dashboards</span>
+          <span>Risk & Float Management</span><span>Document Control</span><span>AutoCAD</span>
+        </div>
       </div>
     </section>
 
-    <section class="featured-projects container fade-up">
-      <h2>SELECTED WORK</h2>
-      <div class="projects-preview-grid" id="featuredProjectsGrid"></div>
-      <div class="text-center"><a href="projects.html" class="btn btn-outline">View all projects →</a></div>
+    <section class="featured">
+      <div class="container">
+        <div class="section-header">
+          <h2>Selected work</h2>
+          <a href="projects.html" class="btn-text">All projects →</a>
+        </div>
+        <div class="projects-grid" id="featuredProjectsGrid"></div>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container footer-flex">
+    <div class="container footer-inner">
       <p>© 2025 Aditya Abhyankar. All rights reserved.</p>
       <div class="social-links">
-        <a href="https://www.linkedin.com/in/aditya-abhyankar-249370194" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="mailto:Aditya.abhyankar22@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/aditya-abhyankar-249370194" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:Aditya.abhyankar22@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
       </div>
     </div>
   </footer>
+
   <div id="toast" class="toast"></div>
-  <div id="modal" class="modal"><div class="modal-content glass-modal"><span class="modal-close">&times;</span><div id="modal-body"></div></div></div>
-  <button id="scrollTopBtn" class="scroll-top" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+  <div id="modal" class="modal"><div class="modal-content"><span class="modal-close">&times;</span><div id="modal-body"></div></div></div>
+  <button id="scrollTopBtn" class="scroll-top"><i class="fas fa-chevron-up"></i></button>
 </body>
 </html>

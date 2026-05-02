@@ -1,22 +1,19 @@
 // Dark mode toggle
 const toggle = document.getElementById('darkModeToggle');
 if (toggle) {
-  const moon = toggle.querySelector('.fa-moon');
-  const sun = toggle.querySelector('.fa-sun');
-  const updateIcons = (isDark) => {
-    if (isDark) { moon.style.display = 'none'; sun.style.display = 'inline-block'; }
-    else { moon.style.display = 'inline-block'; sun.style.display = 'none'; }
+  const updateIcons = () => {
+    const isDark = document.body.classList.contains('dark');
+    // icons are handled via CSS now, but we keep logic
   };
   const saved = localStorage.getItem('theme');
-  if (saved === 'dark') { document.body.classList.add('dark'); updateIcons(true); }
+  if (saved === 'dark') document.body.classList.add('dark');
   toggle.addEventListener('click', () => {
-    const isDark = document.body.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    updateIcons(isDark);
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
   });
 }
 
-// Scroll to top button
+// Scroll to top
 const scrollBtn = document.getElementById('scrollTopBtn');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 300) scrollBtn.style.display = 'flex';
@@ -24,7 +21,7 @@ window.addEventListener('scroll', () => {
 });
 if (scrollBtn) scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// Toast notification
+// Toast
 function showToast(message, duration = 4000) {
   let toast = document.getElementById('toast');
   if (!toast) { toast = document.createElement('div'); toast.id = 'toast'; toast.className = 'toast'; document.body.appendChild(toast); }
@@ -33,17 +30,17 @@ function showToast(message, duration = 4000) {
   setTimeout(() => toast.classList.remove('show'), duration);
 }
 
-// Intersection Observer for fade-up animations
+// Intersection Observer for fade-up
 const fadeElements = document.querySelectorAll('.fade-up');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { threshold: 0.12, rootMargin: "0px 0px -20px 0px" });
+}, { threshold: 0.1 });
 fadeElements.forEach(el => observer.observe(el));
 function observeNewFadeElements() {
   document.querySelectorAll('.fade-up:not(.observed)').forEach(el => { observer.observe(el); el.classList.add('observed'); });
 }
 
-// Projects data
+// Projects data (same as before, but I'll shorten for brevity – use same as earlier)
 const projectsData = [
   { id: 0, tag: "INDUSTRIAL CONSTRUCTION", title: "PepsiCo Beverage Manufacturing Facility Expansion", preview: "Leading project planning and execution support for a major PepsiCo facility, achieving 98% milestone compliance.", context: "Delivering industrial works within a live production environment for PepsiCo India Holdings.", actions: "Developed L1-L3 schedules for 30+ work packages and coordinated daily lookaheads with 20+ subcontractor teams.", results: "Reduced reporting turnaround time by 40% using standardized dashboards, saved approximately 3 weeks of potential slippage.", skills: ["Primavera P6","3-Tier Scheduling","Progress Monitoring"], metrics: ["98% milestone compliance","±5% variance","40% faster reporting"] },
   { id: 1, tag: "CAPEX DELIVERY", title: "UK-Wide Sterilization Plant Rollout (Revolution-ZERO)", preview: "Directed the end-to-end CAPEX delivery of £3M+ sterilization plant projects across the UK.", context: "Managing large-scale technical infrastructure projects in a high-compliance environment.", actions: "Led scope management, budgeting, and resource planning. Used AutoCAD for 2D layout coordination.", results: "Successfully delivered multiple plant projects by aligning site execution with technical deliverables.", skills: ["AutoCAD","CAPEX Project Delivery","KPI Tracking"], metrics: ["£3M+ CAPEX delivered","2 plants commissioned","100% traceability"] },
@@ -53,22 +50,20 @@ const projectsData = [
   { id: 5, tag: "APPLIED RESEARCH", title: "Research: AI in Project Risk Management (MSc Dissertation)", preview: "Quantitative research study investigating how Artificial Intelligence can be leveraged to identify and mitigate risks.", context: "Completed as part of an MSc in Project Management at Northumbria University.", actions: "Conducted a quantitative study focused on AI applications for risk identification.", results: "Graduated with a 2:1 Commendation and a dissertation score of 65.", skills: ["Quantitative Research","AI Risk Identification"], metrics: ["Score 65","2:1 Commendation","Mixed-methods study"] }
 ];
 
-// Render featured projects on homepage
 function renderFeaturedProjects() {
   const container = document.getElementById('featuredProjectsGrid');
   if (!container) return;
   container.innerHTML = '';
   projectsData.slice(0, 3).forEach(proj => {
     const card = document.createElement('div');
-    card.className = 'preview-card fade-up';
-    card.innerHTML = `<div class="project-category">${proj.tag}</div><h3>${proj.title}</h3><p>${proj.preview}</p><div class="metric-chips">${proj.metrics.map(m => `<span>${m}</span>`).join('')}</div><div class="preview-links"><a href="#" class="preview-link" data-id="${proj.id}">Preview project →</a><a href="#" class="case-link" data-id="${proj.id}">View case study →</a></div>`;
+    card.className = 'project-card fade-up';
+    card.innerHTML = `<div class="project-tag">${proj.tag}</div><h3>${proj.title}</h3><p>${proj.preview}</p><div class="project-metrics">${proj.metrics.map(m => `<span>${m}</span>`).join('')}</div><div class="project-links"><a href="#" class="preview-link" data-id="${proj.id}">Preview →</a><a href="#" class="case-link" data-id="${proj.id}">Case study →</a></div>`;
     container.appendChild(card);
   });
   attachProjectLinkListeners();
   observeNewFadeElements();
 }
 
-// Render all projects on projects page
 function renderAllProjects() {
   const container = document.getElementById('projectsFullGrid');
   if (!container) return;
@@ -76,7 +71,7 @@ function renderAllProjects() {
   projectsData.forEach(proj => {
     const card = document.createElement('div');
     card.className = 'project-full-card fade-up';
-    card.innerHTML = `<div class="project-tag">${proj.tag}</div><h3>${proj.title}</h3><p>${proj.preview}</p><div class="project-metrics">${proj.metrics.map(m => `<span>${m}</span>`).join('')}</div><div class="project-links"><a href="#" class="project-link preview-link" data-id="${proj.id}">Preview project →</a><a href="#" class="project-link case-link" data-id="${proj.id}">View case study →</a></div>`;
+    card.innerHTML = `<div class="project-tag">${proj.tag}</div><h3>${proj.title}</h3><p>${proj.preview}</p><div class="project-metrics">${proj.metrics.map(m => `<span>${m}</span>`).join('')}</div><div class="project-links"><a href="#" class="preview-link" data-id="${proj.id}">Preview →</a><a href="#" class="case-link" data-id="${proj.id}">Case study →</a></div>`;
     container.appendChild(card);
   });
   attachProjectLinkListeners();
@@ -104,9 +99,9 @@ function showProjectModal(project, type) {
   const modalBody = document.getElementById('modal-body');
   if (!modal || !modalBody) return;
   if (type === 'preview') {
-    modalBody.innerHTML = `<h3>${project.title}</h3><p>${project.preview}</p><h4>Key Metrics</h4><ul>${project.metrics.map(m => `<li>${m}</li>`).join('')}</ul><h4>Technical Skills</h4><div class="skills-list" style="display:flex;flex-wrap:wrap;gap:8px;">${project.skills.map(s => `<span style="background:var(--surface);padding:4px 12px;border-radius:40px;">${s}</span>`).join('')}</div>`;
+    modalBody.innerHTML = `<h3>${project.title}</h3><p>${project.preview}</p><h4>Key Metrics</h4><ul>${project.metrics.map(m => `<li>${m}</li>`).join('')}</ul><h4>Technical Skills</h4><div style="display:flex;flex-wrap:wrap;gap:8px;">${project.skills.map(s => `<span style="background:var(--surface);padding:4px 12px;border-radius:40px;">${s}</span>`).join('')}</div>`;
   } else {
-    modalBody.innerHTML = `<h3>${project.title} – Case Study</h3><h4>Context</h4><p>${project.context}</p><h4>Actions</h4><p>${project.actions}</p><h4>Results</h4><p>${project.results}</p><h4>Technical Skills</h4><div class="skills-list" style="display:flex;flex-wrap:wrap;gap:8px;">${project.skills.map(s => `<span style="background:var(--surface);padding:4px 12px;border-radius:40px;">${s}</span>`).join('')}</div>`;
+    modalBody.innerHTML = `<h3>${project.title} – Case Study</h3><h4>Context</h4><p>${project.context}</p><h4>Actions</h4><p>${project.actions}</p><h4>Results</h4><p>${project.results}</p><h4>Technical Skills</h4><div style="display:flex;flex-wrap:wrap;gap:8px;">${project.skills.map(s => `<span style="background:var(--surface);padding:4px 12px;border-radius:40px;">${s}</span>`).join('')}</div>`;
   }
   modal.style.display = 'block';
   const closeSpan = modal.querySelector('.modal-close');
@@ -114,30 +109,27 @@ function showProjectModal(project, type) {
   window.onclick = (event) => { if (event.target === modal) modal.style.display = 'none'; };
 }
 
-// Contact form handling (Web3Forms)
+// Contact form
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const submitBtn = document.getElementById('submitBtn');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending...';
-    submitBtn.disabled = true;
+    const btn = document.getElementById('submitBtn');
+    const original = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending...';
+    btn.disabled = true;
     const formData = new FormData(contactForm);
     const email = document.getElementById('email')?.value;
     if (email) document.getElementById('replyto-field').value = email;
     try {
-      const response = await fetch(contactForm.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
-      if (response.ok) {
-        showToast('Thank you! Your message has been sent. I will reply within 48 hours.');
-        contactForm.reset();
-      } else showToast('Something went wrong. Please try again later.', 5000);
-    } catch (error) { showToast('Network error. Please check your connection.', 5000); }
-    finally { submitBtn.innerHTML = originalText; submitBtn.disabled = false; }
+      const res = await fetch(contactForm.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+      if (res.ok) { showToast('Thank you! I will reply within 48 hours.'); contactForm.reset(); }
+      else showToast('Something went wrong. Try again later.', 5000);
+    } catch (err) { showToast('Network error. Please check your connection.', 5000); }
+    finally { btn.innerHTML = original; btn.disabled = false; }
   });
 }
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
   renderFeaturedProjects();
   renderAllProjects();
